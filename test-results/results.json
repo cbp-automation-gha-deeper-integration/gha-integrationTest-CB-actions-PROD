@@ -1,95 +1,97 @@
-name: GHA Build
-
-on:
-    push:
-     branches:
-      - main
-    workflow_dispatch:
-env:
-    artifact_version: 4.0.0
-permissions:
-    id-token: write
-    contents: read
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Compile Code
-        run: echo "Compiling..."
-
-      - name: Produce Binary
-        run: sleep 5
-
-      - name: Push binary
-        run: echo "Pushing Binary to ECR..."
-
-      - name: Register Build Artifacts in Cloudbees Platform
-        uses: cloudbees-io-gha/register-build-artifact@v3
-        id: go-action
-        with:
-          name: "Automation test for Register-Artifacts"
-          version: ${{ env.artifact_version }}
-          url: docker.io/SampleApp/SampleApp-Backend-15:${{ env.artifact_version }}
-          type: "docker"
-          cloudbees-url: "https://api.cloudbees.io"
-          # cloudbees-pat: ${{ secrets.CBP_PAT_PROD }}
-            
-      - name: Publish evidence
-        uses: cloudbees-io-gha/publish-evidence-item@v1
-        with:
-          cloudbees-pat: ${{ secrets.CBP_PAT_PROD }}
-          cloudbees-url: "https://api.cloudbees.io"
-          content: |-
-            Build Completed and artifacts published to Cloudbees platform
-
-  test:
-    runs-on: ubuntu-latest
-    needs: [build]   # Depends on 'build' job
-    steps:
-      - name: Run tests
-        run: echo "Running Tests..."
-
-      - name: Checkout to Collect Test Results
-        uses: actions/checkout@v3
-
-      - name: Publish Test Results in Cloudbees Plaform
-        uses: cloudbees-io-gha/publish-test-results@v2
-        with:
-          test-type: GO
-          results-path: test-results/results.json
-          cloudbees-url: "https://api.cloudbees.io"
-          # cloudbees-pat: ${{ secrets.CBP_PAT_PROD }}
-          
-      - name: Publish evidence
-        uses: cloudbees-io-gha/publish-evidence-item@v2
-        with:
-          cloudbees-url: "https://api.cloudbees.io"
-          # cloudbees-pat: ${{ secrets.CBP_PAT_PROD }}
-          content: |-
-            Testing Completed and results published to Cloudbees platform
-            Test | Results |
-            --------|---------|
-            Test 1 | PASS |
-            Test 2 | FAIL |
-            Test 3 | PASS |
-
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [build,test]   # Depends on both 'build' and 'test' jobs
-    steps:
-      - name: Checkout to Prepare Manifest
-        uses: actions/checkout@v3
-        
-      - name: Trigger Deployment
-        uses: cloudbees-io-gha/run-cloudbees-workflow@v1
-        id: deploy
-        with :
-          cloudbees-url: "https://api.cloudbees.io"
-          cloudbees-pat: ${{ secrets.CBP_PAT_PROD }}
-          workflow-file-name: "cbp-deploy.yaml"
-          workflow-inputs: '{"artifactName": "SampleApp-Backend","artifactVersion": "${{ env.artifact_version }}", "environment": "qa"}'
-
-      - name: Use runUrl output
-        run: echo "The CloudBees run URL is ${{ steps.deploy.outputs.cbp_run_url}}"
+{
+  "results": {
+    "tool": {
+      "name": "gotest"
+    },
+    "summary": {
+      "tests": 13,
+      "passed": 8,
+      "failed": 4,
+      "pending": 0,
+      "skipped": 1,
+      "other": 0,
+      "start": 0,
+      "stop": 0
+    },
+    "tests": [
+      {
+        "name": "TestSkip",
+        "status": "skipped",
+        "duration": 0,
+        "suite": "Test Suite1"
+      },
+      {
+        "name": "TestAdd/ADD_Success",
+        "status": "passed",
+        "duration": 0.05,
+        "suite": "Test Suite2"
+      },
+      {
+        "name": "TestAdd/ADD_Failure",
+        "status": "passed",
+        "duration": 0.05,
+        "suite": "Test Suite1"
+      },
+      {
+        "name": "TestAdd",
+        "status": "passed",
+        "duration": 0.1,
+        "suite": "Test Suite2"
+      },
+      {
+        "name": "TestMul/MUL_Success",
+        "status": "passed",
+        "duration": 0.05,
+        "suite": "Test Suite1"
+      },
+      {
+        "name": "TestSub/SUB_Success",
+        "status": "passed",
+        "duration": 0.05,
+        "suite": "Test Suite2"
+      },
+      {
+        "name": "TestMul/MUL_Failure",
+        "status": "passed",
+        "duration": 0.05,
+        "suite": "Test Suite1"
+      },
+      {
+        "name": "TestMul",
+        "status": "passed",
+        "duration": 0.1,
+        "suite": "Test Suite2"
+      },
+      {
+        "name": "TestSub/SUB_Failure",
+        "status": "failed",
+        "duration": 0.05,
+        "suite": "Test Suite1"
+      },
+      {
+        "name": "TestSub",
+        "status": "failed",
+        "duration": 0.1,
+        "suite": "Test Suite2"
+      },
+      {
+        "name": "TestDiv/DIV_Success",
+        "status": "passed",
+        "duration": 0.05,
+        "suite": "Test Suite1"
+      },
+      {
+        "name": "TestDiv/DIV_Failure",
+        "status": "failed",
+        "duration": 0.05,
+        "suite": "Test Suite2"
+      },
+      {
+        "name": "TestDiv",
+        "status": "failed",
+        "duration": 0.1,
+        "suite": "Test Suite2"
+      }
+    ]
+  }
+}
