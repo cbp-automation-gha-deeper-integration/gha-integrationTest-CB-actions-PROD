@@ -24,29 +24,14 @@ on:
         required: false
 jobs:
   deploy:
+    environment: "${{ inputs.environment }}"
     steps:
-      - uses: cloudbees-io/register-build-artifact@v1
-        with:
-          name: "${{ inputs.artifactName }}"
-          version: "${{ inputs.artifactVersion }}"
-          url: "docker.io/SampleApp/${{ inputs.artifactName }}:${{ inputs.artifactVersion }}"
-  # deploy:
-  #   steps:
-      - uses: cloudbees-io/register-deployed-artifact@v1
+      - name: Inform system that an artifact version was deployed
+        kind: deploy
+        uses: cloudbees-io/register-deployed-artifact@v1
         with:
           name: "${{ inputs.artifactName }}"
           version: "${{ inputs.artifactVersion }}"
           url: "docker.io/SampleApp/${{ inputs.artifactName }}:${{ inputs.artifactVersion }}"
           target-environment: "${{ inputs.environment }}"
-    # needs: build
-  # deploy:
-  #   steps:
-  #     - name: Inform system that an artifact version was deployed
-  #       kind: deploy
-  #       uses: cloudbees-io/register-deployed-artifact@v1
-  #       with:
-  #         name: "${{ inputs.artifactName }}"
-  #         version: "${{ inputs.artifactVersion }}"
-  #         url: "docker.io/SampleApp/${{ inputs.artifactName }}:${{ inputs.artifactVersion }}"
-  #         target-environment: "${{ inputs.environment }}"
           
