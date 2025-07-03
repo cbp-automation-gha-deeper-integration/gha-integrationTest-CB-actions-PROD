@@ -24,7 +24,7 @@
         "name": "TestAdd/ADD_Success",
         "status": "passed",
         "duration": 0.05,
-        "suite": "Test Suite2"
+        "suite": "Test Suite2A"
       },
       {
         "name": "TestAdd/ADD_Failure",
@@ -36,7 +36,7 @@
         "name": "TestAdd",
         "status": "passed",
         "duration": 0.1,
-        "suite": "Test Suite2"
+        "suite": "Test Suite2A"
       },
       {
         "name": "TestMul/MUL_Success",
@@ -48,7 +48,7 @@
         "name": "TestSub/SUB_Success",
         "status": "passed",
         "duration": 0.05,
-        "suite": "Test Suite2"
+        "suite": "Test Suite2A"
       },
       {
         "name": "TestMul/MUL_Failure",
@@ -60,7 +60,7 @@
         "name": "TestMul",
         "status": "passed",
         "duration": 0.1,
-        "suite": "Test Suite2"
+        "suite": "Test Suite2A"
       },
       {
         "name": "TestSub/SUB_Failure",
@@ -72,7 +72,7 @@
         "name": "TestSub",
         "status": "failed",
         "duration": 0.1,
-        "suite": "Test Suite2"
+        "suite": "Test Suite2A"
       },
       {
         "name": "TestDiv/DIV_Success",
@@ -84,13 +84,13 @@
         "name": "TestDiv/DIV_Failure",
         "status": "failed",
         "duration": 0.05,
-        "suite": "Test Suite2"
+        "suite": "Test Suite2A"
       },
       {
         "name": "TestDiv",
         "status": "failed",
         "duration": 0.1,
-        "suite": "Test Suite2"
+        "suite": "Test Suite2A"
       }
     ]
   }
