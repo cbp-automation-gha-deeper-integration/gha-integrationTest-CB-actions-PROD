@@ -89,7 +89,7 @@ jobs:
           cloudbees-url: "https://api.cloudbees.io"
           cloudbees-pat: ${{ secrets.CBP_PAT_PROD }}
           workflow-file-name: "cbp-deploy.yaml"
-          workflow-inputs: '{"artifactName": "SampleApp-Backend","artifactVersion": "${{ env.artifact_version }}", "environment": "PROD"}'
+          workflow-inputs: '{"artifactName": "SampleApp-Backend-15","artifactVersion": "${{ env.artifact_version }}", "environment": "PROD"}'
 
       - name: Use runUrl output
         run: echo "The CloudBees run URL is ${{ steps.deploy.outputs.cbp_run_url}}"
