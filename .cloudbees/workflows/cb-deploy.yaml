@@ -24,7 +24,7 @@ on:
         required: false
 jobs:
   deploy:
-    environment: "${{ inputs.environment }}"
+    # environment: "${{ inputs.environment }}"
     steps:
       - name: Inform system that an artifact version was deployed
         kind: deploy
