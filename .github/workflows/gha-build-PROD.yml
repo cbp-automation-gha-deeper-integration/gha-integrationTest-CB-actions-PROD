@@ -25,7 +25,7 @@ jobs:
         run: echo "Pushing Binary to ECR..."
 
       - name: Register Build Artifacts in Cloudbees Platform
-        uses: cloudbees-io-gha/register-build-artifact@v3
+        uses: cloudbees-io-gha/register-build-artifact@v2
         id: go-action
         with:
           name: "Automation test for Register-Artifacts"
@@ -33,7 +33,7 @@ jobs:
           url: docker.io/SampleApp/SampleApp-Backend-15:${{ env.artifact_version }}
           type: "docker"
           cloudbees-url: "https://api.cloudbees.io"
-          # cloudbees-pat: ${{ secrets.CBP_PAT_PROD }}
+          cloudbees-pat: ${{ secrets.CBP_PAT_PROD }}
             
       - name: Publish evidence
         uses: cloudbees-io-gha/publish-evidence-item@v1
