@@ -32,8 +32,8 @@ jobs:
           version: ${{ env.artifact_version }}
           url: docker.io/SampleApp/SampleApp-Backend-15:${{ env.artifact_version }}
           # type: "docker"
-          # cloudbees-url: "https://api.cloudbees.io"
-          # cloudbees-pat: ${{ secrets.CBP_PAT_PROD }}
+          cloudbees-url: "https://api.cloudbees.io"
+          cloudbees-pat: ${{ secrets.CBP_PAT_PROD }}
             
       - name: Publish evidence
         uses: cloudbees-io-gha/publish-evidence-item@v1
