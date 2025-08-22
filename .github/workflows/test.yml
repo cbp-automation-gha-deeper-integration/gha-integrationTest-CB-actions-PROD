@@ -1,0 +1,44 @@
+name: GHA Workflow
+
+on:
+    workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Compile Code
+        run: echo "Compiling..."
+
+      - name: Produce Binary
+        run: sleep 10
+
+      - name: Push binary
+        run: echo "Pushing Binary to ECR..."
+
+      - name: Register Build Artifacts in Cloudbees Platform
+        uses: cloudbees-io-gha/register-build-artifact@v3
+        id: go-action
+        with:
+          name: "gha-artifact-step"
+          version: 1.0.0
+          url: "docker.io/example:latest"
+          digest: sha256:1234567890abcdef123456123456abcdef789078907890abcdefabcdef123456
+          label: For testing
+          type: docker
+
+      - name: Registered Build ArtifactId
+        run: echo 'Registered Build ArtifactId ${{ steps.go-action.outputs.cbp_artifact_id }}'
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]   # Depends on 'build' job
+    steps:
+      - name: Checkout to Prepare Manifest
+        uses: actions/checkout@v3
+
+      - name: Trigger Deployment
+        run: echo "Invoking CBP Deploy Workflow..."
