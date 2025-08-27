@@ -27,9 +27,6 @@ jobs:
         kind: deploy
         uses: cloudbees-io/register-deployed-artifact@v2
         with:
-          name: "${{ inputs.artifactName }}"
-          version: "${{ inputs.artifactVersion }}"
-          url: "docker.io/SampleApp/${{ inputs.artifactName }}:${{ inputs.artifactVersion }}"
           artifact-id: 1234abcd-56ef-ab78-9012-cdef78903456
           target-environment: "${{ inputs.environment }}"
           
