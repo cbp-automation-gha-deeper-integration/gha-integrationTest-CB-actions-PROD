@@ -19,6 +19,9 @@ on:
       digest:
         type: string
         required: false
+      artifactId:
+        type: string
+        required: false
 jobs:
   deploy:
     # environment: "${{ inputs.environment }}"
@@ -27,6 +30,6 @@ jobs:
         kind: deploy
         uses: cloudbees-io/register-deployed-artifact@v2
         with:
-          artifact-id: 1234abcd-56ef-ab78-9012-cdef78903456
+          artifact-id: "${{ inputs.artifactId }}
           target-environment: "${{ inputs.environment }}"
           
