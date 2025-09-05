@@ -14,6 +14,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      artifactId: ${{ steps.artifact-id.outputs.test }}
     steps:
       - name: Compile Code
         run: echo "Compiling..."
@@ -42,6 +44,11 @@ jobs:
           cloudbees-url: "https://api.cloudbees.io"
           content: |-
             Build Completed and artifacts published to Cloudbees platform
+
+      - name: Set the artifact-id
+        id: artifact-id
+        run: |
+            echo "test=${{ steps.go-action.outputs.cbp_artifact_id }}" > "$GITHUB_OUTPUT"
 
   test:
     runs-on: ubuntu-latest
@@ -89,7 +96,7 @@ jobs:
           cloudbees-url: "https://api.cloudbees.io"
           cloudbees-pat: ${{ secrets.CBP_PAT_PROD }}
           workflow-file-name: "cbp-deploy.yaml"
-          workflow-inputs: '{"artifactName": "SampleApp-Backend-15","artifactVersion": "${{ env.artifact_version }}", "environment": "PROD"}'
+          workflow-inputs: '{"artifactName": "SampleApp-Backend-15","artifactVersion": "${{ env.artifact_version }}", "environment": "PROD", "artifactId" : "${{needs.build.outputs.artifactId}}"}'
 
       - name: Use runUrl output
         run: echo "The CloudBees run URL is ${{ steps.deploy.outputs.cbp_run_url}}"
