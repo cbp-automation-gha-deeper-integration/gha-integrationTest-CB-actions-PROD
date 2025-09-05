@@ -30,6 +30,6 @@ jobs:
         kind: deploy
         uses: cloudbees-io/register-deployed-artifact@v2
         with:
-          artifact-id: "${{ inputs.artifactId }}
+          artifact-id: "${{ inputs.artifactId }}"
           target-environment: "${{ inputs.environment }}"
           
