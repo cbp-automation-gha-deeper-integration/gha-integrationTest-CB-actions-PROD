@@ -26,7 +26,7 @@ jobs:
         run: echo "Pushing Binary to ECR..."
 
       - name: Register Build Artifacts in Cloudbees Platform
-        uses: cloudbees-io-gha/register-build-artifact@v2
+        uses: cloudbees-io-gha/register-build-artifact@v3
         id: go-action
         with:
           name: "Automation test for Register-Artifacts"
@@ -47,7 +47,8 @@ jobs:
       - name: Set the artifact-id
         id: artifact-id
         run: |
-            echo "test=${{ steps.go-action.outputs.cbp_artifact_id }}" > "$GITHUB_OUTPUT"
+            echo ${{ steps.go-action.outputs.cbp_artifact_id }} 
+            echo "test=${{ steps.go-action.outputs.cbp_artifact_id }}" >> $GITHUB_OUTPUT
 
   test:
     runs-on: ubuntu-latest
