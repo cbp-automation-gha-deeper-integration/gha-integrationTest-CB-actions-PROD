@@ -73,8 +73,8 @@ jobs:
       - name: Publish evidence
         uses: cloudbees-io-gha/publish-evidence-item@v2
         with:
-          cloudbees-url: "https://api.cloudbees.io"
-          # cloudbees-pat: ${{ secrets.CBP_PAT_PROD }}
+          # cloudbees-url: "https://api.cloudbees.io"
+          # # cloudbees-pat: ${{ secrets.CBP_PAT_PROD }}
           content: |-
             Testing Completed and results published to Cloudbees platform
             Test | Results |
