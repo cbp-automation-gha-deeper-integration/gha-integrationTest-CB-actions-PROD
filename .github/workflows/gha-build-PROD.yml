@@ -1,15 +1,17 @@
 name: GHA Build
 on:
-    push:
-     branches:
-      - main
     workflow_dispatch:
-env:
-    artifact_version: 4.0.0
+    push:
+        branches:
+            - 'main'    
+
 permissions:
     id-token: write
     contents: read
 
+env:
+    artifact_version: 4.0.0
+    
 jobs:
   build:
     runs-on: ubuntu-latest
