@@ -73,15 +73,17 @@ jobs:
       - name: Publish evidence
         uses: cloudbees-io-gha/publish-evidence-item@v2
         with:
+          content: "Evidence : PROD-Validation-test"
+          
           # cloudbees-url: "https://api.cloudbees.io"
           # # cloudbees-pat: ${{ secrets.CBP_PAT_PROD }}
-          content: |-
-            Testing Completed and results published to Cloudbees platform
-            Test | Results |
-            --------|---------|
-            Test 1 | PASS |
-            Test 2 | FAIL |
-            Test 3 | PASS |
+          # content: |-
+          #   Testing Completed and results published to Cloudbees platform
+          #   Test | Results |
+          #   --------|---------|
+          #   Test 1 | PASS |
+          #   Test 2 | FAIL |
+          #   Test 3 | PASS |
 
   deploy:
     runs-on: ubuntu-latest
