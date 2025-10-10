@@ -39,7 +39,7 @@ jobs:
           # cloudbees-pat: ${{ secrets.CBP_PAT_PROD }}
             
       - name: Publish evidence
-        uses: cloudbees-io-gha/publish-evidence-item@v1
+        uses: cloudbees-io-gha/publish-evidence-item@v2
         with:
           # cloudbees-pat: ${{ secrets.CBP_PAT_PROD }}
           # cloudbees-url: "https://api.cloudbees.io"
